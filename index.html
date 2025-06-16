@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Chamados - Simulação</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Sistema de Controle de Chamados</h1>
+
+    <div style="display: flex; gap: 12px; margin-bottom: 18px;">
+      <button id="btn-criar" type="button">Criar Chamado</button>
+      <button id="btn-buscar" type="button">Buscar Chamado</button>
+      <button id="limpar-busca-externo" type="button">Limpar Busca</button>
+
+    </div>
+
+    <div id="mensagem" class="mensagem"></div>
+
+    <h2>Chamados Registrados</h2>
+    <table id="tabela-chamados">
+      <thead>
+        <tr>
+          <th data-coluna="id">ID</th>
+          <th data-coluna="titulo">Título</th>
+          <th data-coluna="prioridade">Prioridade</th>
+          <th data-coluna="status">Status</th>
+          <th data-coluna="dataCriacao">Data de Criação</th>
+          <th data-coluna="dataModificacao">Última Modificação</th>
+          <th>Ações</th>
+
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    
+
+    <!-- Modal de criação -->
+    <div id="modal-criacao" class="modal">
+      <div class="modal-content">
+        <span class="close" id="fechar-modal-criacao">&times;</span>
+        <h2>Novo Chamado</h2>
+        <form id="form-chamado">
+          <label for="titulo">Título:</label>
+          <input type="text" id="titulo" required />
+
+          <label for="descricao">Descrição:</label>
+          <textarea id="descricao" required></textarea>
+
+          <label for="prioridade">Prioridade:</label>
+          <select id="prioridade" required>
+            <option value="">Selecione</option>
+            <option value="Baixa">Baixa</option>
+            <option value="Média">Média</option>
+            <option value="Alta">Alta</option>
+          </select>
+          <button type="submit">Registrar Chamado</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal de edição -->
+    <div id="modal-edicao" class="modal">
+      <div class="modal-content">
+        <span class="close" id="fechar-modal">&times;</span>
+        <h2>Editar Chamado</h2>
+        <form id="form-edicao">
+          <input type="hidden" id="edit-id" />
+          <label for="edit-titulo">Título:</label>
+          <input type="text" id="edit-titulo" required />
+          <label for="edit-descricao">Descrição:</label>
+          <textarea id="edit-descricao" required></textarea>
+          <label for="edit-prioridade">Prioridade:</label>
+          <select id="edit-prioridade" required>
+            <option value="Baixa">Baixa</option>
+            <option value="Média">Média</option>
+            <option value="Alta">Alta</option>
+          </select>
+          <label for="edit-status">Status:</label>
+          <select id="edit-status" required>
+            <option value="Aberto">Aberto</option>
+            <option value="Em Andamento">Em Andamento</option>
+            <option value="Finalizado">Finalizado</option>
+          </select>
+          <button type="submit">Salvar Alterações</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal de busca -->
+    <div id="modal-busca" class="modal">
+      <div class="modal-content">
+        <span class="close" id="fechar-modal-busca">&times;</span>
+        <h2>Buscar Chamados</h2>
+        <form id="form-busca">
+          <label for="busca-id">ID:</label>
+          <input type="number" id="busca-id" min="1" />
+
+          <label for="busca-titulo">Título:</label>
+          <input type="text" id="busca-titulo" />
+
+          <label for="busca-prioridade">Prioridade:</label>
+          <select id="busca-prioridade">
+            <option value="">Qualquer</option>
+            <option value="Baixa">Baixa</option>
+            <option value="Média">Média</option>
+            <option value="Alta">Alta</option>
+          </select>
+
+          <label for="busca-status">Status:</label>
+          <select id="busca-status">
+            <option value="">Qualquer</option>
+            <option value="Aberto">Aberto</option>
+            <option value="Em Andamento">Em Andamento</option>
+            <option value="Finalizado">Finalizado</option>
+          </select>
+
+          <button type="submit">Buscar</button>
+          <button type="button" id="limpar-busca">Limpar Busca</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
