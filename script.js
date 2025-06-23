@@ -87,15 +87,23 @@ function ordenarChamados(lista, coluna, crescente = true) {
     if (coluna === "id") {
       return crescente ? a.id - b.id : b.id - a.id;
     }
+    if (coluna === "prioridade") {
+      const prioridadePeso = { "Baixa": 1, "Média": 2, "Alta": 3 };
+      return crescente 
+        ? prioridadePeso[a.prioridade] - prioridadePeso[b.prioridade]
+        : prioridadePeso[b.prioridade] - prioridadePeso[a.prioridade];
+    }
     if (coluna === "dataCriacao" || coluna === "dataModificacao") {
-      // Datas estão no formato DD/MM/YYYY HH:MM
-      const [dA, mA, aA, hA, minA] = a[coluna].split(/[\s/:]/);
-      const [dB, mB, aB, hB, minB] = b[coluna].split(/[\s/:]/);
-      const dateA = new Date(`${aA}-${mA}-${dA}T${hA}:${minA}:00`);
-      const dateB = new Date(`${bB}-${mB}-${dB}T${hB}:${minB}:00`);
+      const getDate = (val) => {
+        if (!val) return new Date(0); // valor mínimo
+        const [d, m, a, h, min] = val.split(/[\s/:]/);
+        return new Date(`${a}-${m}-${d}T${h||'00'}:${min||'00'}:00`);
+      }
+      const dateA = getDate(a[coluna]);
+      const dateB = getDate(b[coluna]);
       return crescente ? dateA - dateB : dateB - dateA;
     }
-    // Para texto (titulo, status, prioridade)
+    // Para texto (titulo, status)
     const valA = (a[coluna] || '').toLowerCase();
     const valB = (b[coluna] || '').toLowerCase();
     if (valA < valB) return crescente ? -1 : 1;
@@ -104,6 +112,7 @@ function ordenarChamados(lista, coluna, crescente = true) {
   });
   return sorted;
 }
+
 
 // ========== TABELA PRINCIPAL ==========
 function atualizarTabela(lista = chamados) {
